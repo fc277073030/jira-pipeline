@@ -1,0 +1,9 @@
+- hosts: all
+  tasks:
+    - name: "demo shell"
+      shell: >
+        mysql -h 192.168.5.144 --user=root --password=123456  --batch --skip-column-names --execute="SELECT DISTINCT CONCAT('User: ''',user,'''@''',host,''';') AS query FROM mysql.user;"
+      register: result
+    - name: debug
+      debug:
+        msg: "{{result.stdout}}"
